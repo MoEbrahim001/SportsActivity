@@ -1,0 +1,6 @@
+export const environment = {
+    production: false,
+    apiUrl: 'https://localhost:7177/api/SportsActivity', // ✅ Your .NET Web API base URL,
+    apiurlget:'https://localhost:7177/api/SportsActivity/get-all',
+    apiurlpost:'https://localhost:7177/api/SportsActivity/add'
+  };

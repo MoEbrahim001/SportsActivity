@@ -1,0 +1,36 @@
+<h2 mat-dialog-title>Add Sports Activity</h2>
+
+<form [formGroup]="addActivityForm" (ngSubmit)="onSubmit()">
+  <mat-dialog-content>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Code</mat-label>
+      <input matInput type="text" formControlName="code" required />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Name (Arabic)</mat-label>
+      <input matInput type="text" formControlName="nameAr" required />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Name (English)</mat-label>
+      <input matInput type="text" formControlName="nameEn" required />
+    </mat-form-field>
+
+    <!-- File Upload (Outside mat-form-field) -->
+    <div class="full-width">
+      <label>Upload Image</label>
+      <input type="file" (change)="onFileSelected($event)" />
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button type="button" (click)="cancel()" [disabled]="isLoading">
+      Cancel
+    </button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="addActivityForm.invalid || isLoading">
+      <mat-progress-spinner *ngIf="isLoading" diameter="20" mode="indeterminate"></mat-progress-spinner>
+      Save
+    </button>
+  </mat-dialog-actions>
+</form>
