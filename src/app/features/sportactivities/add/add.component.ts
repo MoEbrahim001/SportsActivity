@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { SportsActivityService } from '../../../shared/services/sports-activity.service';
-import { ActivityId } from '../../../shared/models/sport-activity-add.model';
+import { ActivityId } from '../../../shared/models/sportactivitiesmodels/sport-activity-add.model';
 import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatFormFieldModule } from '@angular/material/form-field';
