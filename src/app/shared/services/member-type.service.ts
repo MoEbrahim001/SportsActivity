@@ -35,7 +35,7 @@ export class MemberTypesService {
     
     
       
-      deleteSportsActivity(typeId: number): Observable<any>{
+      deleteMemberType(typeId: number): Observable<any>{
         return this.http.delete(`${this.apiUrl}/delete/${typeId}`);
       }
     

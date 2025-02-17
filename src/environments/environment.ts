@@ -5,6 +5,7 @@ export const environment = {
     apiurlpost:'https://localhost:7177/api/SportsActivity/add',
     apiurl2: 'https://localhost:7177/api/MemberTypes',
     apiurlgettype:'https://localhost:7177/api/MemberTypes/get-all',
-    apiurlgetcategory:'https://localhost:7177/api/MemberTypes/get-all',
+    apiurl3:'https://localhost:7177/api/MemberCategory',
+    apiurl3getall:'https://localhost:7177/api/MemberCategory/get-all',
 
   };

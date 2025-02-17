@@ -5,6 +5,7 @@ import { EditSportsActivityComponent } from './features/sportactivities/edit/edi
 import { AddComponentMember } from './features/membertypes/add/add.component';
 import { ListComponent } from './features/membertypes/list/list.component';
 import { EditMemberTypeComponent } from './features/membertypes/edit/edit.component';
+import { ListcategoryComponent } from './features/membercategories/listcategory/listcategory.component';
 
 export const appRoutes: Routes = [
   { path: '', component: ListSportsActivitiesComponent },
@@ -12,7 +13,9 @@ export const appRoutes: Routes = [
   { path: 'edit/:id', component: EditSportsActivityComponent },
   {path : 'add-member-type', component: AddComponentMember},
   {path: 'view' , component:ListComponent},
-  {path : 'edit/:id', component:EditMemberTypeComponent}
+  {path : 'edit/:id', component:EditMemberTypeComponent},
+  {path: 'viewcat' , component:ListcategoryComponent},
+
   
   // Redirect to list by default
 ];

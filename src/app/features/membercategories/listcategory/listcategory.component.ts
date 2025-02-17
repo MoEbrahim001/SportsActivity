@@ -1,39 +1,39 @@
 import { Component, OnInit ,Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
-import { MemberTypesService } from '../../../shared/services/member-type.service';
-import { MemberTypeResult } from '../../../shared/models/membertypemodels/member-type-results';
-import { MemberTypeParams } from '../../../shared/models/membertypemodels/mwmber-type-params';
+import { MemberCategoryService } from '../../../shared/services/member-category.service';
+import { MemberCategoryResult } from '../../../shared/models/membertcategorymodels/member-category-results.models';
+import { MemberCategoryParams } from '../../../shared/models/membertcategorymodels/member-category-params.models';
 import { PageEvent } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { AddComponentMember } from '../add/add.component';
-import { EditMemberTypeComponent } from '../edit/edit.component';
-import { MemberTypeList } from '../../../shared/models/membertypemodels/member-type-list.models';
+import { AddcategoryComponent } from '../addcategory/addcategory.component';
+import { EditcategoryComponent } from '../editcategory/editcategory.component';
+import { MemberCategoryList } from '../../../shared/models/membertcategorymodels/member-category-list.models';
 import { MatDialogRef } from '@angular/material/dialog';
 
-
 @Component({
-  selector: 'app-list',
-  templateUrl: './list.component.html',
+  selector: 'app-listcategory',
   standalone: true,
-  imports: [CommonModule, MatPaginatorModule, MatTableModule, MatButtonModule, MatIconModule, MatTooltipModule]
+  imports: [CommonModule, MatPaginatorModule, MatTableModule, MatButtonModule, MatIconModule, MatTooltipModule],
+  templateUrl: './listcategory.component.html',
+  styleUrl: './listcategory.component.css'
 })
-export class ListComponent implements OnInit {
-  members: MemberTypeList[] = [];
+export class ListcategoryComponent {
+ members: MemberCategoryList[] = [];
   totalResults = 0;
 
-  memberParams: MemberTypeParams = {
+  memberParams: MemberCategoryParams = {
     first: 0, 
     rows: 5,
   };
   displayedColumns: string[] = ['id', 'name', 'nameAr', 'actions'];
 
   constructor(
-    private memberService: MemberTypesService,
+    private memberService: MemberCategoryService,
     private dialog: MatDialog
   ) {}
 
@@ -42,8 +42,8 @@ export class ListComponent implements OnInit {
   }
 
 getAllMembers() {
-  this.memberService.getMemberTypes(this.memberParams).subscribe({
-    next: (data: MemberTypeResult) => { // 👈 Explicitly define 'data' type
+  this.memberService.getMemberCategories(this.memberParams).subscribe({
+    next: (data: MemberCategoryResult) => { // 👈 Explicitly define 'data' type
       console.log('✅ Received Members:', data);
       this.members = data.results; // Ensure 'results' is an array of 'Result'
       this.totalResults = data.totalResults;
@@ -62,7 +62,7 @@ getAllMembers() {
   }
 
   openAddDialog() {
-    const dialogRef = this.dialog.open(AddComponentMember, {
+    const dialogRef = this.dialog.open(AddcategoryComponent, {
       width: '600px',
     });
 
@@ -87,9 +87,9 @@ getAllMembers() {
   //     }
   //   });
   // }
-  openEditDialog(member: MemberTypeList) {
+  openEditDialog(member: MemberCategoryList) {
     console.log('📤 Opening Edit Dialog with:', member); // Debug log
-    const dialogRef = this.dialog.open(EditMemberTypeComponent, {
+    const dialogRef = this.dialog.open(EditcategoryComponent, {
       width: '500px',
       data: { ...member }, // Ensure new reference
     });
@@ -106,7 +106,7 @@ getAllMembers() {
 
   deleteMember(memberId: number) {
     if (confirm('❌ Are you sure you want to delete this member?')) {
-      this.memberService.deleteMemberType(memberId).subscribe({
+      this.memberService.deleteMemberCategory(memberId).subscribe({
         next: () => {
           console.log(`🗑️ Deleted Member ID: ${memberId}`);
           this.members = this.members.filter(member => member.id !== memberId);
@@ -118,7 +118,8 @@ getAllMembers() {
     }
   }
   
-  trackById(index: number, item: MemberTypeList) {
+  trackById(index: number, item: MemberCategoryList) {
     return item.id;
   }
+
 }
