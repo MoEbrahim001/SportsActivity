@@ -1,10 +1,10 @@
 export interface Root {
     status: string
     message: string
-    member: Member
+    member: EditMemberType
   }
   
-  export interface Member {
+  export interface EditMemberType {
     id: number
     name: string
     nameAr: string

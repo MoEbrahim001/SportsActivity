@@ -1,6 +1,7 @@
-import { ListComponent } from "../../../features/membertypes/list/list.component";
+import { MemberTypeList } from "./member-type-list.models";
+ 
 
-export interface SportsActivityResult {
-  results: ListComponent[];
+export interface MemberTypeResult {
+  results: MemberTypeList[];
   totalResults: number;
 }

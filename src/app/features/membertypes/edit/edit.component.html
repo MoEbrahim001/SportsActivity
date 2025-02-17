@@ -1,1 +1,28 @@
-<p>edit works!</p>
+<h2 mat-dialog-title>Edit Member Type</h2>
+<div mat-dialog-content>
+  <form>
+    <!-- Arabic Name Input -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Name (Arabic)</mat-label>
+      <input matInput type="text" [(ngModel)]="editMemberTypeObj.nameAr" name="nameAr" required (input)="checkDuplicateName()">
+    </mat-form-field>
+
+    <!-- English Name Input -->
+    <mat-form-field appearance="outline">
+      <mat-label>English Name</mat-label>
+      <input matInput type="text" [(ngModel)]="editMemberTypeObj.name" name="name" required (input)="checkDuplicateName()">
+    </mat-form-field>
+
+    <!-- Name Duplicate Warning -->
+    <p *ngIf="isNameDuplicate" class="error-message">
+      ⚠️ This name already exists! Please choose another name.
+    </p>
+  </form>
+</div>
+
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="saveChanges()" [disabled]="isNameDuplicate">
+    Save Changes
+  </button>
+</div>
