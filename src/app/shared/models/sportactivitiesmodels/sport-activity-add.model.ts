@@ -4,6 +4,6 @@ export interface ActivityId {
   id: number
   code: string
   nameAr: string
-  nameEn: string
+  name: string
   image: string
 }

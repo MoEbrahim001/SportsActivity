@@ -30,7 +30,7 @@ export class EditSportsActivityComponent implements OnInit {
   editForm!: FormGroup;
   selectedFile: File | null = null;
   previewImage: string | null = null;
-  originalNameEn: string = ''; 
+  originalName: string = ''; 
   originalNameAr: string = ''; 
   originalImage: string | null = null; 
   isNameDuplicate: boolean = false; 
@@ -54,10 +54,10 @@ export class EditSportsActivityComponent implements OnInit {
       id: [this.data.id],
       code: [this.data.code],
       nameAr: [this.data.nameAr, Validators.required], 
-      nameEn: [this.data.nameEn, Validators.required], 
+      name: [this.data.name, Validators.required], 
     });
 
-    this.originalNameEn = this.data.nameEn;
+    this.originalName = this.data.name;
     this.originalNameAr = this.data.nameAr;
     this.originalImage = this.data.image || null;
 
@@ -65,7 +65,7 @@ export class EditSportsActivityComponent implements OnInit {
       this.previewImage = `https://localhost:7177/images/${this.originalImage}`;
     }
 
-    this.editForm.get('nameEn')?.valueChanges.subscribe(() => this.checkDuplicateName());
+    this.editForm.get('name')?.valueChanges.subscribe(() => this.checkDuplicateName());
     this.editForm.get('nameAr')?.valueChanges.subscribe(() => this.checkDuplicateName());
   }
 
@@ -77,12 +77,12 @@ export class EditSportsActivityComponent implements OnInit {
   }
 
   checkDuplicateName() {
-    const newNameEn = this.editForm.value.nameEn?.trim().toLowerCase();
+    const newName = this.editForm.value.name?.trim().toLowerCase();
     const newNameAr = this.editForm.value.nameAr?.trim().toLowerCase();
 
     this.isNameDuplicate = this.allActivities.some(
       (activity) =>
-        (activity.nameEn.toLowerCase() === newNameEn || 
+        (activity.name.toLowerCase() === newName || 
          activity.nameAr.toLowerCase() === newNameAr) &&
         activity.id !== this.data.id
     );
@@ -105,7 +105,7 @@ export class EditSportsActivityComponent implements OnInit {
   }
 
   saveChanges() {
-    if (!this.editForm.value.nameEn?.trim() || !this.editForm.value.nameAr?.trim()) {
+    if (!this.editForm.value.name?.trim() || !this.editForm.value.nameAr?.trim()) {
       alert('⚠️ Both Arabic and English names are required!');
       return;
     }
@@ -119,7 +119,7 @@ export class EditSportsActivityComponent implements OnInit {
     formData.append('activityId', this.data.id.toString());
     formData.append('code', this.editForm.getRawValue().code);
     formData.append('nameAr', this.editForm.value.nameAr);
-    formData.append('nameEn', this.editForm.value.nameEn);
+    formData.append('name', this.editForm.value.name);
   
     if (this.selectedFile) {
       formData.append('file', this.selectedFile);

@@ -42,7 +42,7 @@ export class AddComponent {
     this.addActivityForm = this.fb.group({
       code: ['', Validators.required],
       nameAr: ['', Validators.required],
-      nameEn: ['', Validators.required],
+      name: ['', Validators.required],
     });
   }
 
@@ -61,7 +61,7 @@ export class AddComponent {
       id: 0,
       code: this.addActivityForm.value.code,
       nameAr: this.addActivityForm.value.nameAr,
-      nameEn: this.addActivityForm.value.nameEn,
+      name: this.addActivityForm.value.name,
       image: '',
     };
 

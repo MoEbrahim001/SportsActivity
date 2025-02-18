@@ -28,7 +28,7 @@ export class ListSportsActivitiesComponent implements OnInit {
     first: 0, // Start at first record
     rows: 5, // Show 5 records per page
   };
-  displayedColumns: string[] = ['id', 'code', 'nameAr', 'nameEn', 'image', 'actions'];
+  displayedColumns: string[] = ['id', 'code', 'nameAr', 'name', 'image', 'actions'];
 
   constructor(
     private sportsActivityService: SportsActivityService,
