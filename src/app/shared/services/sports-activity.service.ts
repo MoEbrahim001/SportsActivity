@@ -46,8 +46,13 @@ addSportsActivity(data: ActivityId): Observable<ActivityId> {
 }
 
 editSportsActivity(activityId: number, formData: FormData): Observable<any> {
-  return this.http.put<any>(`${this.apiUrl}/edit-activity?activityId=${activityId}`, formData);
+  // Append the activityId to the FormData, not as a query parameter
+  formData.append('id', activityId.toString());
+
+  // Send the request without query parameters
+  return this.http.put<any>(`${this.apiUrl}/edit-activity`, formData);
 }
+
 
 deleteSportsActivity(activityId: number): Observable<any>{
   return this.http.delete(`${this.apiUrl}/delete/${activityId}`);
