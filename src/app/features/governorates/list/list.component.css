@@ -1,0 +1,29 @@
+.listbox-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center elements */
+    gap: 10px; /* Add some spacing */
+}
+  
+::ng-deep .p-listbox {
+    width: 300px !important;
+    max-height: none !important; /* Allow full height */
+    background-color: white !important;
+    border-radius: 4px !important;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) !important;
+}
+
+::ng-deep .p-listbox .p-listbox-filter-container + span {
+    display: none !important;
+    width: 300px !important;
+    height: 400px !important; /* Set fixed height for scroll */
+    overflow-y: auto !important;
+}
+
+/* Style for list items to align text and buttons */
+.listbox-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}

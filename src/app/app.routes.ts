@@ -6,6 +6,8 @@ import { AddComponentMember } from './features/membertypes/add/add.component';
 import { ListComponent } from './features/membertypes/list/list.component';
 import { EditMemberTypeComponent } from './features/membertypes/edit/edit.component';
 import { ListcategoryComponent } from './features/membercategories/listcategory/listcategory.component';
+import { GovernorateList } from './shared/models/Governoratemodels/governorate-list.models';
+import { GovernorateListComponent } from './features/governorates/list/list.component';
 
 export const appRoutes: Routes = [
   { path: '', component: ListSportsActivitiesComponent },
@@ -15,6 +17,7 @@ export const appRoutes: Routes = [
   {path: 'view' , component:ListComponent},
   {path : 'edit/:id', component:EditMemberTypeComponent},
   {path: 'viewcat' , component:ListcategoryComponent},
+  {path : 'viewgovernorates', component: GovernorateListComponent}
 
   
   // Redirect to list by default

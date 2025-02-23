@@ -16,9 +16,10 @@ private apiurl2 = environment.apigovernorategetall;
 
   constructor(private http: HttpClient) { }
 
-    getGovernorates(params: GovernorateParams): Observable<GovernorateResult> {
-      return this.http.post<GovernorateResult>(this.apiurl2, params);
-    }
+  getGovernorates(): Observable<GovernorateResult> {
+    return this.http.get<GovernorateResult>(this.apiurl2);
+}
+
     getGovernoratesById(typeId: number): Observable<Root> {
       return this.http.get<Root>(`${this.apiurl}/${typeId}`);
     }

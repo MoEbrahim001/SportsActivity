@@ -1,1 +1,26 @@
-<p>list works!</p>
+<div class="listbox-container">
+    <!-- Add Button Outside Listbox -->
+    <button pButton label="Add Governorate" icon="pi pi-plus" class="p-button-success" (click)="onAdd()">Add</button>
+
+    <form [formGroup]="formGroup" class="card flex justify-center">
+        <p-listbox 
+        [options]="governorates" 
+        formControlName="selectedGovernorate"
+        optionLabel="name"
+        dataKey="id"
+        [filter]="true"
+        [virtualScroll]="true"
+        [virtualScrollItemSize]="40" 
+        class="w-full md:w-56">
+      
+        <!-- Template for items to include Edit button -->
+        <ng-template let-governorate pTemplate="item">
+          <div class="listbox-item">
+            <span>{{ governorate.name }}</span>
+            <button pButton type="button" icon="pi pi-pencil" class="p-button-text p-button-sm" (click)="onEdit(governorate)">Edit</button>
+          </div>
+        </ng-template>
+      </p-listbox>
+      
+    </form>
+</div>

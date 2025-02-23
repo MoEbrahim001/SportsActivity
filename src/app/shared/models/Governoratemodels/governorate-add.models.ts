@@ -6,6 +6,5 @@ export interface AddGovernate {
     logo: string
     area: number
     population: number
-    cities: any
 
   }
