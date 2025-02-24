@@ -1,39 +1,70 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { GovernorateService } from '../../../shared/services/governorate.service';
 import { GovernorateResult } from '../../../shared/models/Governoratemodels/governorate-results.models';
 import { ListboxModule } from 'primeng/listbox';
-import { HttpClientModule } from '@angular/common/http';
+import { MessageService } from 'primeng/api';
+import { AddGovernorateComponent } from '../add/add.component';
 import { GovernorateList } from '../../../shared/models/Governoratemodels/governorate-list.models';
+import { ToastModule } from 'primeng/toast';
+import { MatDialog } from '@angular/material/dialog';
+import { EditGovernateComponent } from '../edit/edit.component';
+import { AddCityComponent } from '../../cities/add/add.component';
+import { EditcityComponent } from '../../cities/edit/edit.component';
+import { CityService } from '../../../shared/services/city.service'; 
+import { CityList } from '../../../shared/models/Citymodels/city-list.models';
 
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [CommonModule, ListboxModule, HttpClientModule, ReactiveFormsModule],
+  imports: [ListboxModule, ReactiveFormsModule, FormsModule, ToastModule],
+  providers: [MessageService],  
   templateUrl: './list.component.html',
   styleUrl: './list.component.css'
 })
 export class GovernorateListComponent implements OnInit {
     formGroup!: FormGroup;
     governorates: GovernorateList[] = [];
+    cities: CityList[] = []; // Store cities of selected governorate
     loading: boolean = false;
+    selectedGovernorate!: GovernorateList | null;
 
-    constructor(private governorateService: GovernorateService, private fb: FormBuilder) {}
+
+    constructor(
+        private governorateService: GovernorateService, 
+        private cityService: CityService, 
+        private fb: FormBuilder,
+        private messageService: MessageService, 
+        private dialog: MatDialog
+    ) {}
 
     ngOnInit(): void {
         this.formGroup = this.fb.group({
-            selectedGovernorate: [null] // Reactive form control for selection
+            selectedGovernorate: [null]
         });
 
         this.loadGovernorates();
+
+        // Watch for governorate selection changes
+        this.formGroup.get('selectedGovernorate')?.valueChanges.subscribe(governorate => {
+            if (governorate) {
+                this.loadCities(governorate.id);
+            }
+        });
     }
+    onGovernorateSelected() {
+        if (this.selectedGovernorate) {
+          this.loadCities(this.selectedGovernorate.id);
+        } else {
+          this.cities = [];
+        }
+      }
 
     loadGovernorates() {
         this.loading = true;
         this.governorateService.getGovernorates().subscribe(
             (response: GovernorateResult) => {
-                this.governorates = response.results; // No pagination, display all
+                this.governorates = response.results;
                 this.loading = false;
             },
             error => {
@@ -43,13 +74,62 @@ export class GovernorateListComponent implements OnInit {
         );
     }
 
-    onAdd() {
-        console.log("Add button clicked!");
-        // Navigate to add form or open a modal
+    loadCities(governorateId: number) {
+        this.cityService.getCitiesByGovernorate(governorateId).subscribe(
+            (response) => {
+                this.cities = response;
+            },
+            error => {
+                console.error('Error fetching cities', error);
+            }
+        );
     }
 
-    onEdit(governorate: GovernorateList) {
-        console.log("Edit button clicked for:", governorate);
-        // Navigate to edit form or open a modal with governorate details
+    onAddGovernorate() {
+        const dialogRef = this.dialog.open(AddGovernorateComponent, { width: '400px' });
+
+        dialogRef.afterClosed().subscribe((newGovernorate: GovernorateList) => {
+            if (newGovernorate) {
+                this.governorates.push(newGovernorate);
+                this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Governorate added' });
+            }
+        });
     }
+
+    onEditGovernorate(governorate: GovernorateList) {
+        const dialogRef = this.dialog.open(EditGovernateComponent, { width: '500px', data: governorate });
+
+        dialogRef.afterClosed().subscribe((updatedGovernorate: GovernorateList) => {
+            if (updatedGovernorate) {
+                const index = this.governorates.findIndex(g => g.id === updatedGovernorate.id);
+                if (index !== -1) {
+                    this.governorates[index] = updatedGovernorate;
+                }
+                this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Governorate updated' });
+            }
+        });
+    }
+
+    onAddCity() {
+        const dialogRef = this.dialog.open(AddCityComponent, { width: '400px', data: { governorateId: this.selectedGovernorate?.id } });
+      
+        dialogRef.afterClosed().subscribe(newCity => {
+          if (newCity) {
+            this.cities.push(newCity);
+          }
+        });
+      }
+
+      onEditCity(city: CityList) {
+        const dialogRef = this.dialog.open(EditcityComponent, { width: '400px', data: city });
+      
+        dialogRef.afterClosed().subscribe(updatedCity => {
+          if (updatedCity) {
+            const index = this.cities.findIndex(c => c.id === updatedCity.id);
+            if (index !== -1) {
+              this.cities[index] = updatedCity;
+            }
+          }
+        });
+      }
 }

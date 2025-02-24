@@ -6,6 +6,5 @@ export interface EditGovernorate {
     logo: string
     area: number
     population: number
-    cities: any
   }
   

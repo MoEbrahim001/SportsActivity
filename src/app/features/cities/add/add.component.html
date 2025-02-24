@@ -1,1 +1,39 @@
-<p>add works!</p>
+<h2 mat-dialog-title>Add City</h2>
+
+<form [formGroup]="addCityForm" (ngSubmit)="onSubmit()">
+  <mat-dialog-content>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Code</mat-label>
+      <input matInput type="text" formControlName="code" required />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Name (English)</mat-label>
+      <input matInput type="text" formControlName="name" required />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Name (Arabic)</mat-label>
+      <input matInput type="text" formControlName="nameAr" required />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Governorate</mat-label>
+      <mat-select formControlName="governorateId" required>
+        <mat-option *ngFor="let governorate of governorates" [value]="governorate.id">
+          {{ governorate.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button type="button" (click)="cancel()" [disabled]="isLoading">
+      Cancel
+    </button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="addCityForm.invalid || isLoading">
+      <mat-progress-spinner *ngIf="isLoading" diameter="20" mode="indeterminate"></mat-progress-spinner>
+      Save
+    </button>
+  </mat-dialog-actions>
+</form>

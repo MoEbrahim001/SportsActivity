@@ -1,1 +1,75 @@
-<p>edit works!</p>
+<h2 mat-dialog-title>Edit Governorate</h2>
+<div mat-dialog-content>
+  <form [formGroup]="editForm">
+    <!-- Code Input -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Code</mat-label>
+      <input matInput formControlName="code" placeholder="Enter code" required />
+    </mat-form-field>
+
+    <!-- English Name Input -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Name (English)</mat-label>
+      <input matInput formControlName="name" placeholder="Enter English Name" required />
+    </mat-form-field>
+
+    <!-- Arabic Name Input -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Name (Arabic)</mat-label>
+      <input matInput formControlName="nameAr" placeholder="Enter Arabic Name" required />
+    </mat-form-field>
+
+    <!-- Logo Input -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Logo URL</mat-label>
+      <input matInput formControlName="logo" placeholder="Enter logo URL" required />
+    </mat-form-field>
+
+    <!-- Area Input -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Area (km²)</mat-label>
+      <input matInput type="number" formControlName="area" placeholder="Enter area in km²" required />
+    </mat-form-field>
+
+    <!-- Population Input -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Population</mat-label>
+      <input matInput type="number" formControlName="population" placeholder="Enter population" required />
+    </mat-form-field>
+
+    <!-- Name Duplicate Warning -->
+    <p *ngIf="isNameDuplicate" class="error-message">
+      ⚠️ This name already exists! Please choose another name.
+    </p>
+  </form>
+</div>
+
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="saveChanges()" [disabled]="editForm.invalid || isNameDuplicate">
+    Save Changes
+  </button>
+</div>
+
+<p-dialog appendTo="body" modal="true" [(visible)]="showSuccessfullyMessage">
+    <ng-template pTemplate="header">
+      <h6 style="color: #04527e; font-weight: bold; font-size: 16pt;">
+        {{ SuccessfullyHeader }}
+      </h6>
+    </ng-template>
+    <span style="color: green; font-weight: bold; font-size: 12pt; text-align: center;">
+      {{ SuccessfullyMessage }}
+    </span>
+  </p-dialog>
+  
+  
+  
+
+<p-dialog appendTo="body" modal="true" [(visible)]="errorDisplay" [style]="{ width: '350px' }">
+  <ng-template pTemplate="header">
+    <h6 style="color: rgb(181, 4, 4);">Error</h6>
+  </ng-template>
+  <span style="color: rgb(181, 4, 4); font-weight: bold;">
+    {{ errorMessage }}
+  </span>
+</p-dialog>

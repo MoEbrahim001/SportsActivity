@@ -8,7 +8,9 @@ export const environment = {
     apiurl3:'https://localhost:7177/api/MemberCategory',
     apiurl3getall:'https://localhost:7177/api/MemberCategory/get-all',
     apigovernorate:'https://localhost:7177/api/Governorate',
-    apigovernorategetall:'https://localhost:7177/api/Governorate/get-all'
+    apigovernorategetall:'https://localhost:7177/api/Governorate/get-all',
+    apicity:'https://localhost:7177/api/City',
+    apicitygetall:'https://localhost:7177/api/City/get-all'
 
 
   };

@@ -1,26 +1,46 @@
-<div class="listbox-container">
-    <!-- Add Button Outside Listbox -->
-    <button pButton label="Add Governorate" icon="pi pi-plus" class="p-button-success" (click)="onAdd()">Add</button>
+<!-- Add Governorate Button -->
+<button pButton label="Add Governorate" icon="pi pi-plus" class="p-button-success" (click)="onAddGovernorate()">Add</button>
 
-    <form [formGroup]="formGroup" class="card flex justify-center">
-        <p-listbox 
-        [options]="governorates" 
-        formControlName="selectedGovernorate"
-        optionLabel="name"
-        dataKey="id"
-        [filter]="true"
-        [virtualScroll]="true"
-        [virtualScrollItemSize]="40" 
-        class="w-full md:w-56">
+<!-- Toast Notifications -->
+<p-toast></p-toast>
+
+<div class="p-grid">
+  <!-- Governorates Listbox -->
+  <div class="p-col-6">
+  
+    <p-listbox 
+      [options]="governorates" 
+      [(ngModel)]="selectedGovernorate"
+      optionLabel="name"
+      dataKey="id"
+      [filter]="true"
+      (onChange)="onGovernorateSelected()">
       
-        <!-- Template for items to include Edit button -->
-        <ng-template let-governorate pTemplate="item">
-          <div class="listbox-item">
-            <span>{{ governorate.name }}</span>
-            <button pButton type="button" icon="pi pi-pencil" class="p-button-text p-button-sm" (click)="onEdit(governorate)">Edit</button>
-          </div>
-        </ng-template>
-      </p-listbox>
+      <ng-template let-governorate pTemplate="item">
+        <div class="listbox-item">
+          <span>{{ governorate.name }}</span>
+          <button pButton type="button" icon="pi pi-pencil" class="p-button-text p-button-sm" (click)="onEditGovernorate(governorate)">Edit</button>
+        </div>
+      </ng-template>
+    </p-listbox>
+  </div>
+
+  <!-- Cities Listbox -->
+  <div class="p-col-6">
+    <button pButton label="Add City" icon="pi pi-plus" class="p-button-success" (click)="onAddCity()">Add</button>
+    
+    <p-listbox 
+      [options]="cities" 
+      optionLabel="name"
+      dataKey="id"
+      [filter]="true">
       
-    </form>
+      <ng-template let-city pTemplate="item">
+        <div class="listbox-item">
+          <span>{{ city.name }}</span>
+          <button pButton type="button" icon="pi pi-pencil" class="p-button-text p-button-sm" (click)="onEditCity(city)">Edit</button>
+        </div>
+      </ng-template>
+    </p-listbox>
+  </div>
 </div>
