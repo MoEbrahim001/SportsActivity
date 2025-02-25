@@ -14,6 +14,7 @@ import { EditcityComponent } from '../../cities/edit/edit.component';
 import { CityService } from '../../../shared/services/city.service'; 
 import { CityList } from '../../../shared/models/Citymodels/city-list.models';
 import { CityResult } from '../../../shared/models/Citymodels/city-results.models';
+
 @Component({
   selector: 'app-list',
   standalone: true,
@@ -43,26 +44,27 @@ export class GovernorateListComponent implements OnInit {
         });
 
         this.loadGovernorates();
-        this.loadAllCities(); // Load all cities initially
 
-        // Watch for governorate selection changes
         this.formGroup.get('selectedGovernorate')?.valueChanges.subscribe(governorate => {
             if (governorate) {
-                this.loadCities(governorate.id);
+                this.onGovernorateSelected(governorate);
             } else {
-                this.loadAllCities();
+                this.cities = [];
             }
         });
     }
 
-    onGovernorateSelected() {
-        if (this.selectedGovernorate) {
-            this.loadCities(this.selectedGovernorate.id);
+    onGovernorateSelected(governorate: GovernorateList) {
+        if (governorate) {
+            this.selectedGovernorate = governorate;
+            console.log("Selected Governorate ID:", governorate.id);
+            this.loadCities(governorate.id);
         } else {
-            this.loadAllCities();
+            console.warn("No governorate selected.");
+            this.cities = [];
         }
     }
-
+    
     loadGovernorates() {
         this.loading = true;
         this.governorateService.getGovernorates().subscribe(
@@ -80,23 +82,16 @@ export class GovernorateListComponent implements OnInit {
     loadCities(governorateId: number) {
         this.cityService.getCitiesByGovernorate(governorateId).subscribe(
             (response) => {
-                this.cities = response;
+                this.cities = response.length ? response : []; // Ensure cities are updated properly
+                console.log(`Loaded ${this.cities.length} cities for Governorate ID: ${governorateId}`);
             },
             error => {
-                console.error('Error fetching cities', error);
-            }
-        );
-    }
-
-    loadAllCities() {
-        this.cityService.getCities().subscribe(
-            (response: CityResult) => {
-                this.cities = response.results;
-                this.loading = false;
-
-            },
-            error => {
-                console.error('Error fetching all cities', error);
+                if (error.status === 404) {
+                    console.warn(`No cities found for Governorate ID: ${governorateId}`);
+                    this.cities = [];
+                } else {
+                    console.error('Error fetching cities', error);
+                }
             }
         );
     }
@@ -127,8 +122,13 @@ export class GovernorateListComponent implements OnInit {
     }
 
     onAddCity() {
-        const dialogRef = this.dialog.open(AddCityComponent, { width: '400px', data: { governorateId: this.selectedGovernorate?.id } });
-    
+        if (!this.selectedGovernorate) {
+            console.warn("No governorate selected for adding a city.");
+            return;
+        }
+
+        const dialogRef = this.dialog.open(AddCityComponent, { width: '400px', data: { governorateId: this.selectedGovernorate.id } });
+
         dialogRef.afterClosed().subscribe(newCity => {
             if (newCity) {
                 this.cities.push(newCity);
@@ -138,7 +138,7 @@ export class GovernorateListComponent implements OnInit {
 
     onEditCity(city: CityList) {
         const dialogRef = this.dialog.open(EditcityComponent, { width: '400px', data: city });
-    
+
         dialogRef.afterClosed().subscribe(updatedCity => {
             if (updatedCity) {
                 const index = this.cities.findIndex(c => c.id === updatedCity.id);

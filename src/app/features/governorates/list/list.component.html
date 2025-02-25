@@ -1,15 +1,13 @@
-<!-- Toast Notifications -->
-<p-toast></p-toast>
-
-<!-- Parent container for side-by-side layout -->
 <div class="list-container">
   <!-- Governorates Listbox -->
   <div class="p-col-6">
     <button pButton label="Add Governorate" icon="pi pi-plus" class="p-button-success" (click)="onAddGovernorate()">Add</button>
-    
+
     <p-listbox 
       [options]="governorates" 
       optionLabel="name"
+      [(ngModel)]="selectedGovernorate"
+      (onChange)="onGovernorateSelected($event.value)"
       dataKey="id"
       [filter]="true">
       
@@ -24,8 +22,8 @@
 
   <!-- Cities Listbox -->
   <div class="p-col-6">
-    <button pButton label="Add City" icon="pi pi-plus" class="p-button-success" (click)="onAddCity()">Add</button>
-    
+    <button pButton label="Add City" icon="pi pi-plus" class="p-button-success" (click)="onAddCity()" [disabled]="!selectedGovernorate">Add</button>
+
     <p-listbox 
       [options]="cities" 
       optionLabel="name"
