@@ -27,3 +27,18 @@
     align-items: center;
     width: 100%;
 }
+.list-container {
+    display: flex; /* Align items horizontally */
+    gap: 20px; /* Space between lists */
+    align-items: start; /* Align the tops */
+  }
+  
+  .p-col-6 {
+    flex: 1; /* Makes both list boxes take equal space */
+    min-width: 300px; /* Prevents collapsing */
+  }
+  .list-container {
+    display: flex; /* Align items horizontally */
+    gap: 20px; /* Space between lists */
+    align-items: start; /* Align the tops */
+  }  

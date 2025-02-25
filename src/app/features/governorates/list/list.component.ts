@@ -13,7 +13,7 @@ import { AddCityComponent } from '../../cities/add/add.component';
 import { EditcityComponent } from '../../cities/edit/edit.component';
 import { CityService } from '../../../shared/services/city.service'; 
 import { CityList } from '../../../shared/models/Citymodels/city-list.models';
-
+import { CityResult } from '../../../shared/models/Citymodels/city-results.models';
 @Component({
   selector: 'app-list',
   standalone: true,
@@ -29,7 +29,6 @@ export class GovernorateListComponent implements OnInit {
     loading: boolean = false;
     selectedGovernorate!: GovernorateList | null;
 
-
     constructor(
         private governorateService: GovernorateService, 
         private cityService: CityService, 
@@ -44,21 +43,25 @@ export class GovernorateListComponent implements OnInit {
         });
 
         this.loadGovernorates();
+        this.loadAllCities(); // Load all cities initially
 
         // Watch for governorate selection changes
         this.formGroup.get('selectedGovernorate')?.valueChanges.subscribe(governorate => {
             if (governorate) {
                 this.loadCities(governorate.id);
+            } else {
+                this.loadAllCities();
             }
         });
     }
+
     onGovernorateSelected() {
         if (this.selectedGovernorate) {
-          this.loadCities(this.selectedGovernorate.id);
+            this.loadCities(this.selectedGovernorate.id);
         } else {
-          this.cities = [];
+            this.loadAllCities();
         }
-      }
+    }
 
     loadGovernorates() {
         this.loading = true;
@@ -81,6 +84,19 @@ export class GovernorateListComponent implements OnInit {
             },
             error => {
                 console.error('Error fetching cities', error);
+            }
+        );
+    }
+
+    loadAllCities() {
+        this.cityService.getCities().subscribe(
+            (response: CityResult) => {
+                this.cities = response.results;
+                this.loading = false;
+
+            },
+            error => {
+                console.error('Error fetching all cities', error);
             }
         );
     }
@@ -112,24 +128,24 @@ export class GovernorateListComponent implements OnInit {
 
     onAddCity() {
         const dialogRef = this.dialog.open(AddCityComponent, { width: '400px', data: { governorateId: this.selectedGovernorate?.id } });
-      
+    
         dialogRef.afterClosed().subscribe(newCity => {
-          if (newCity) {
-            this.cities.push(newCity);
-          }
-        });
-      }
-
-      onEditCity(city: CityList) {
-        const dialogRef = this.dialog.open(EditcityComponent, { width: '400px', data: city });
-      
-        dialogRef.afterClosed().subscribe(updatedCity => {
-          if (updatedCity) {
-            const index = this.cities.findIndex(c => c.id === updatedCity.id);
-            if (index !== -1) {
-              this.cities[index] = updatedCity;
+            if (newCity) {
+                this.cities.push(newCity);
             }
-          }
         });
-      }
+    }
+
+    onEditCity(city: CityList) {
+        const dialogRef = this.dialog.open(EditcityComponent, { width: '400px', data: city });
+    
+        dialogRef.afterClosed().subscribe(updatedCity => {
+            if (updatedCity) {
+                const index = this.cities.findIndex(c => c.id === updatedCity.id);
+                if (index !== -1) {
+                    this.cities[index] = updatedCity;
+                }
+            }
+        });
+    }
 }

@@ -34,7 +34,7 @@ private apiurl2 = environment.apicitygetall;
               }
               
       editCity(member: EditCity): Observable<any> {
-                return this.httpclient.put<any>(`${this.apiurl}/edit-governate`, member);
+                return this.httpclient.put<any>(`${this.apiurl}/edit-city`, member);
             }
             deleteCity(typeId: number): Observable<any>{
               return this.httpclient.delete(`${this.apiurl}/delete/${typeId}`);

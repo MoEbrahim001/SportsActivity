@@ -1,20 +1,17 @@
-<!-- Add Governorate Button -->
-<button pButton label="Add Governorate" icon="pi pi-plus" class="p-button-success" (click)="onAddGovernorate()">Add</button>
-
 <!-- Toast Notifications -->
 <p-toast></p-toast>
 
-<div class="p-grid">
+<!-- Parent container for side-by-side layout -->
+<div class="list-container">
   <!-- Governorates Listbox -->
   <div class="p-col-6">
-  
+    <button pButton label="Add Governorate" icon="pi pi-plus" class="p-button-success" (click)="onAddGovernorate()">Add</button>
+    
     <p-listbox 
       [options]="governorates" 
-      [(ngModel)]="selectedGovernorate"
       optionLabel="name"
       dataKey="id"
-      [filter]="true"
-      (onChange)="onGovernorateSelected()">
+      [filter]="true">
       
       <ng-template let-governorate pTemplate="item">
         <div class="listbox-item">
