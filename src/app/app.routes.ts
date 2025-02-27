@@ -8,7 +8,8 @@ import { EditMemberTypeComponent } from './features/membertypes/edit/edit.compon
 import { ListcategoryComponent } from './features/membercategories/listcategory/listcategory.component';
 import { GovernorateList } from './shared/models/Governoratemodels/governorate-list.models';
 import { GovernorateListComponent } from './features/governorates/list/list.component';
-
+import { AdddistrictComponent } from './features/districts/add/add.component';
+import { EditdistrictComponent } from './features/districts/edit/edit.component';
 export const appRoutes: Routes = [
   { path: '', component: ListSportsActivitiesComponent },
   { path: 'add', component: AddComponent },
@@ -17,7 +18,12 @@ export const appRoutes: Routes = [
   {path: 'view' , component:ListComponent},
   {path : 'edit/:id', component:EditMemberTypeComponent},
   {path: 'viewcat' , component:ListcategoryComponent},
-  {path : 'viewgovernorates', component: GovernorateListComponent}
+  {path : 'viewgovernorates', component: GovernorateListComponent},
+  // {path : 'adddistrict', component: AdddistrictComponent }
+     {path : 'editdistrict', component: EditdistrictComponent }
+
+
+
 
   
   // Redirect to list by default

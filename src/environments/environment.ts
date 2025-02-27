@@ -10,7 +10,9 @@ export const environment = {
     apigovernorate:'https://localhost:7177/api/Governorate',
     apigovernorategetall:'https://localhost:7177/api/Governorate/get-all',
     apicity:'https://localhost:7177/api/City',
-    apicitygetall:'https://localhost:7177/api/City/get-all'
+    apicitygetall:'https://localhost:7177/api/City/get-all',
+    apidistrict: 'https://localhost:7177/api/District',
+    apidistrictgetall:'https://localhost:7177/api/District/get-all'
 
 
   };

@@ -27,7 +27,7 @@ export class CityService {
   }
 
   addCities(data: AddCity): Observable<AddCity> {
-    console.log('addSportsActivity() called'); // ✅ Step 1: Confirm function is called
+    console.log('addCity() called'); // ✅ Step 1: Confirm function is called
     console.log('Sending API request to:', `${this.apiurl}/add`);
     console.log('Request Data:', data); // ✅ Step 2: Print the data before sending
 

@@ -25,15 +25,34 @@
     <button pButton label="Add City" icon="pi pi-plus" class="p-button-success" (click)="onAddCity()" [disabled]="!selectedGovernorate">Add</button>
 
     <p-listbox 
-      [options]="cities" 
-      optionLabel="name"
-      dataKey="id"
-      [filter]="true">
+    [options]="cities" 
+    optionLabel="name"
+    [(ngModel)]="selectedCity"
+    (onChange)="onCitySelected($event.value)" 
+    dataKey="id"
+    [filter]="true">
       
       <ng-template let-city pTemplate="item">
         <div class="listbox-item">
           <span>{{ city.name }}</span>
           <button pButton type="button" icon="pi pi-pencil" class="p-button-text p-button-sm" (click)="onEditCity(city)">Edit</button>
+        </div>
+      </ng-template>
+    </p-listbox>
+  </div>
+  <div class="p-col-6">
+    <button pButton label="Add City" icon="pi pi-plus" class="p-button-success" (click)="onAddDistrict()" [disabled]="!selectedCity">Add</button>
+
+    <p-listbox 
+      [options]="districts" 
+      optionLabel="name"
+      dataKey="id"
+      [filter]="true">
+      
+      <ng-template let-district pTemplate="item">
+        <div class="listbox-item">
+          <span>{{ district.name }}</span>
+          <button pButton type="button" icon="pi pi-pencil" class="p-button-text p-button-sm" (click)="onEditDistrict(district)">Edit</button>
         </div>
       </ng-template>
     </p-listbox>
