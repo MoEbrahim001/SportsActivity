@@ -12,7 +12,8 @@ export const environment = {
     apicity:'https://localhost:7177/api/City',
     apicitygetall:'https://localhost:7177/api/City/get-all',
     apidistrict: 'https://localhost:7177/api/District',
-    apidistrictgetall:'https://localhost:7177/api/District/get-all'
+    apidistrictgetall:'https://localhost:7177/api/District/get-all',
+    apimembersearch:'https://localhost:7177/api/Member/search'
 
 
   };

@@ -10,6 +10,7 @@ import { GovernorateList } from './shared/models/Governoratemodels/governorate-l
 import { GovernorateListComponent } from './features/governorates/list/list.component';
 import { AdddistrictComponent } from './features/districts/add/add.component';
 import { EditdistrictComponent } from './features/districts/edit/edit.component';
+import { SearchmemberComponent } from './features/members/searchmember/searchmember.component';
 export const appRoutes: Routes = [
   { path: '', component: ListSportsActivitiesComponent },
   { path: 'add', component: AddComponent },
@@ -20,7 +21,9 @@ export const appRoutes: Routes = [
   {path: 'viewcat' , component:ListcategoryComponent},
   {path : 'viewgovernorates', component: GovernorateListComponent},
   // {path : 'adddistrict', component: AdddistrictComponent }
-     {path : 'editdistrict', component: EditdistrictComponent }
+     {path : 'editdistrict', component: EditdistrictComponent },
+     {path : 'members', component: SearchmemberComponent }
+
 
 
 
