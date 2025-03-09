@@ -28,7 +28,7 @@ export class SearchmemberComponent {
     this.memberService.searchMembers(this.searchCriteria).subscribe(
       response => {
         console.log("API Response (Extracted Results):", response);
-        this.members = response; // Now `response` is an array
+        this.members = response; // Now response is an array
       },
       error => {
         console.error("API Error:", error);
@@ -40,6 +40,5 @@ export class SearchmemberComponent {
   resetSearch() {
     this.searchCriteria = {};
     this.members = [];
-    this.cdr.detectChanges();  // ✅ Force UI update
   }
 }

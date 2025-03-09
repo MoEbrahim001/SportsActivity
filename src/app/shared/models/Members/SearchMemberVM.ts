@@ -1,6 +1,6 @@
 export interface SearchMemberVM {
     memberId?: string;
-    nameAr?: string;
+    name?: string;
     dob?: string;
     nationalId?: string;
   }
