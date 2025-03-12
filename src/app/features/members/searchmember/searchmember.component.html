@@ -32,27 +32,29 @@
   </div>
 
   <!-- Results Table -->
-  <div class="results-container">
-    <h3>نتائج البحث</h3>
-    <p *ngIf="members.length === 0">⚠️ لا توجد بيانات مطابقة للبحث</p>
-    <table *ngIf="members.length > 0" class="table">
-      <thead>
-        <tr>
-          <th>رقم العضو</th>
-          <th>اسم العضو</th>
-          <th>تاريخ الميلاد</th>
-          <th>رقم الهوية</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let member of members">
-          <td>{{ member.memberId || '❌ N/A' }}</td>
-          <td>{{ member.nameAr || '❌ N/A' }}</td>
-          <td>{{ member.dob ? (member.dob | date:'yyyy-MM-dd') : '❌ N/A' }}</td>
-          <td>{{ member.nationalId || '❌ N/A' }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <!-- Results Message -->
+<p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+
+<!-- Results Table -->
+<div class="results-container">
+  <h3>نتائج البحث</h3>
   
+  <table *ngIf="members.length > 0" class="table">
+    <thead>
+      <tr>
+        <th>رقم العضو</th>
+        <th>اسم العضو</th>
+        <th>تاريخ الميلاد</th>
+        <th>رقم الهوية</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let member of members">
+        <td>{{ member.memberId || '❌ N/A' }}</td>
+        <td>{{ member.nameAr || '❌ N/A' }}</td>
+        <td>{{ member.dob ? (member.dob | date:'yyyy-MM-dd') : '❌ N/A' }}</td>
+        <td>{{ member.nationalId || '❌ N/A' }}</td>
+      </tr>
+    </tbody>
+  </table>
 </div>

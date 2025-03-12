@@ -14,6 +14,7 @@ import { MemberService } from '../../../shared/services/member.service';
 export class SearchmemberComponent {
   searchCriteria: SearchMemberVM = {};
   members: any[] = [];
+  errorMessage: string = '';  // New property for error message
 
   constructor(private memberService: MemberService, private cdr: ChangeDetectorRef) {}
 
@@ -28,17 +29,26 @@ export class SearchmemberComponent {
     this.memberService.searchMembers(this.searchCriteria).subscribe(
       response => {
         console.log("API Response (Extracted Results):", response);
-        this.members = response; // Now response is an array
+        
+        if (response.length === 0) {
+          this.errorMessage = "⚠️ لا توجد بيانات مطابقة للبحث";  // Set error message
+          this.members = [];
+        } else {
+          this.errorMessage = ""; // Clear error message
+          this.members = response;
+        }
       },
       error => {
         console.error("API Error:", error);
+        this.errorMessage = "❌ حدث خطأ أثناء البحث. حاول مرة أخرى.";  // API error message
+        this.members = [];
       }
     );
   }
-  
 
   resetSearch() {
     this.searchCriteria = {};
     this.members = [];
+    this.errorMessage = "";  // Clear error message on reset
   }
 }

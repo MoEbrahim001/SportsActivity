@@ -13,7 +13,8 @@ export const environment = {
     apicitygetall:'https://localhost:7177/api/City/get-all',
     apidistrict: 'https://localhost:7177/api/District',
     apidistrictgetall:'https://localhost:7177/api/District/get-all',
-    apimembersearch:'https://localhost:7177/api/Member/search'
+    apimembersearch:'https://localhost:7177/api/Member/search',
+    apiparentchildmembersearch:'https://localhost:7177/api/Parentchild/search'
 
 
   };

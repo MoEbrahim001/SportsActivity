@@ -1,0 +1,51 @@
+<div class="container">
+    <!-- Search Fields -->
+    <div class="search-container">
+      <h2>البحث في قائمة الأعضاء</h2>
+  
+      <div class="form-group">
+        <label for="memberId">رقم العضو</label>
+        <input type="text" id="memberId" [(ngModel)]="searchCriteria.memberId" class="form-control">
+      </div>
+  
+      <div class="form-group">
+        <label for="nameAr">اسم العضو</label>
+        <input type="text" id="nameAr" [(ngModel)]="searchCriteria.nameAr" class="form-control">
+      </div>
+  
+  
+  
+     
+  
+      <!-- Buttons -->
+      <div class="button-group">
+        <button (click)="searchMembers()" class="btn btn-primary">🔍 بحث</button>
+        <button (click)="resetSearch()" class="btn btn-secondary">❌ إلغاء</button>
+      </div>
+    </div>
+  
+    <!-- Results Table -->
+    <!-- Results Message -->
+  <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+<!-- Results Table -->
+<div class="results-container">
+    <h3>نتائج البحث</h3>
+  
+    <table *ngIf="members.length > 0" class="table">
+      <thead>
+        <tr>
+          <th>رقم العضو</th>
+          <th>اسم العضو</th>
+          <th>نوع العضو</th> <!-- New Column for Parent/Child -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let member of members">
+          <td>{{ member.memberId || '❌ N/A' }}</td>
+          <td>{{ member.name || '❌ N/A' }}</td>
+          <td>{{ member.memberType || '❌ N/A' }}</td> <!-- Show Parent/Child -->
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

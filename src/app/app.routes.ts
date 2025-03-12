@@ -11,6 +11,7 @@ import { GovernorateListComponent } from './features/governorates/list/list.comp
 import { AdddistrictComponent } from './features/districts/add/add.component';
 import { EditdistrictComponent } from './features/districts/edit/edit.component';
 import { SearchmemberComponent } from './features/members/searchmember/searchmember.component';
+import { SearchparentchildmemberComponent } from './features/parentchildmember/searchparentchildmember/searchparentchildmember.component';
 export const appRoutes: Routes = [
   { path: '', component: ListSportsActivitiesComponent },
   { path: 'add', component: AddComponent },
@@ -22,7 +23,9 @@ export const appRoutes: Routes = [
   {path : 'viewgovernorates', component: GovernorateListComponent},
   // {path : 'adddistrict', component: AdddistrictComponent }
      {path : 'editdistrict', component: EditdistrictComponent },
-     {path : 'members', component: SearchmemberComponent }
+     {path : 'members', component: SearchmemberComponent },
+     {path : 'parentchildmembers', component: SearchparentchildmemberComponent }
+
 
 
 
